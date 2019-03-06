@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load empresas_filtro %}
+{% block title %}Certificados{% endblock %}
+
+{% block Main %}
+<h4 style="text-align: center">Certificados Digitais - {{empresa.razao}}</h4>
+    <br/>
+    <div style="overflow-x:auto;">
+        <table class="table table-sm">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Tipo</th>
+                    <th>Validade</th>
+                    <th>E-mail</th>
+                    <th style="text-align: right"><a href="{% url 'criar_certificado_cliente' empresa.id %}"><img src="{% static 'icones/add_white.png' %}"></img></a></th>
+                </tr>
+                </thead>
+                {% for certificado in certificados %}
+                    {% if empresa.id == certificado.empresa_id%}
+                        {% if certificado.validade > hoje %}
+                            <tr class="no_prazo">
+                                <td>{{ certificado.tipo }}</td>
+                                <td>
+                                    <a href="{% url 'atualizar_certificado' certificado.id%}">{{ certificado.validade|date:"d/m/Y"}}</a>
+                                </td>
+                                <td>
+                                    {{ certificado.email|em_branco }}
+                                </td>
+                                <td style="text-align: right">
+                                    <a href="{% url 'deletar_certificado' empresa.id certificado.id %}"><img src="{% static 'icones/del.png' %}"></img></a>
+                                </td>
+                            </tr>
+                        {% else %}
+                            <tr class="vencido">
+                                <td>{{ certificado.tipo }}</td>
+                                <td>
+                                    <a href="{% url 'atualizar_certificado' certificado.id%}">{{ certificado.validade|date:"d/m/Y"}}</a>
+                                </td>
+                                <td>
+                                    {{ certificado.email|em_branco }}
+                                </td>
+                                <td style="text-align: right">
+                                    <a href="{% url 'deletar_certificado' empresa.id certificado.id %}"><img src="{% static 'icones/del.png' %}"></img></a>
+                                </td>
+                            </tr>
+                        {% endif %}
+                    {% endif %}
+                {% endfor %}
+        </table>
+    </div>
+{% endblock %}

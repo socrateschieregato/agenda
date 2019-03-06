@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% load bootstrap %}
+{% load static %}
+
+{% block title %}Cadastrar Certificado{% endblock %}
+
+{% block Main %}
+    <script>
+      $( function() {
+        $( "#id_validade" ).datepicker({
+          showOn: "button",
+          buttonImage: "{% static 'icones/calendar.png' %}",
+          buttonImageOnly: true,
+          buttonText: "Select date",
+          dateFormat: "dd/mm/yy",
+          dayNamesMin: [ "D", "S", "T", "Q", "Q", "S", "S" ],
+          monthNamesShort: [ "Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez" ],
+          changeYear: true,
+          changeMonth: true,
+          yearRange: "-0:+3"
+        });
+      } );
+    </script>
+    <div class="row">
+        <div class="col-lg-3"></div>
+        <div class="col-lg-6">
+            <h4>{{ empresa.razao }}</h4>
+            <form method="post">
+                {% csrf_token %}
+                <div class="row">
+                <div class="col">{{ form.empresa|bootstrap }}</div>
+                <div class="col">{{ form.name|bootstrap }}</div>
+            </div>
+            <div class="row">
+                <div class="col">{{ form.tipo|bootstrap }}</div>
+                <div class="col">{{ form.validade|bootstrap}}</div>
+            </div>
+            <div class="row">
+                <div class="col-sm-9">{{ form.email|bootstrap }}</div>
+                <div class="col-sm-3">{{ form.password|bootstrap }}</div>
+            </div>
+            <br/>
+            <div class="row">
+                <div class="col">
+                    <button type="submit" class="btn btn-primary">Salvar</button>
+                    <a href="{% url 'listar_empresas' %}">
+                        <button type="button" class="btn btn-danger">Cancelar</button>
+                    </a>
+                </div>
+            </div>
+            </form>
+        </div>
+        <div class="col-lg-3"></div>
+    </div>
+{% endblock %}
+

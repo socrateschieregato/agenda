@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load bootstrap %}
+{% load static %}
+
+{% block title %}Cadastrar Empresa{% endblock %}
+
+{% block Main %}
+
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="row">
+        <div class="col-sm-2">{{ form.codigo|bootstrap }}</div>
+        <div class="col-sm-6">{{ form.razao|bootstrap }}</div>
+        <div class="col-sm-2">{{ form.cnpj|bootstrap }}</div>
+        <div class="col-sm-2">{{ form.ie|bootstrap }}</div>
+    </div>
+    <div class="row">
+        <div class="col">{{ form.endereco|bootstrap }}</div>
+        <div class="col-sm-2">{{ form.num|bootstrap }}</div>
+        <div class="col">{{ form.bairro|bootstrap }}</div>
+        <div class="col-sm-2">{{ form.cep|bootstrap }}</div>
+    </div>
+    <div class="row">
+        <div class="col-sm-6">{{ form.email|bootstrap }}</div>
+        <div class="col-sm-2">{{ form.im|bootstrap }}</div>
+    </div>
+    <div class="row">
+        <div class="col-sm-2">{{ form.status|bootstrap }}</div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <button type="submit" class="btn btn-primary">Salvar</button>
+            <a href="{% url 'listar_empresas' %}">
+                <button type="button" class="btn btn-danger">Cancelar</button>
+            </a>
+        </div>
+    </div>
+</form>
+
+{% endblock %}

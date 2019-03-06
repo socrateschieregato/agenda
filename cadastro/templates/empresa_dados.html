@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+{% load bootstrap %}
+{% load static %}
+{% load empresas_filtro %}
+
+{% block title %}Cadastrar Empresa{% endblock %}
+
+{% block Main %}
+<div class="row">
+    <div class="col-md-3"></div>
+    <div class="col-md-6">
+        <table class="table table-hover">
+            <thead class="thead-dark">
+                <tr class="cab">
+                    <th>Empresa</th>
+                    <th>Dados</th>
+                </tr>
+            </thead>
+            <tbody id="myTable">
+                <tr>
+                    <th scope="row">Codigo</th>
+                    <td>{{ empresa.codigo | cod4 }}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Razao</th>
+                    <td>{{ empresa.razao | razao }}</td>
+                </tr>
+                <tr>
+                    <th scope="row">CNPJ</th>
+                    <td>{{ empresa.cnpj | cnpj }}</td>
+                </tr>
+                <tr>
+                    <th scope="row">IE</th>
+                    <td>{{ empresa.ie | em_branco }}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Endereço</th>
+                    <td>{{ empresa.endereco | em_branco }}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Número</th>
+                    <td>{{ empresa.num | em_branco }}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Bairro</th>
+                    <td>{{ empresa.bairro | em_branco }}</td>
+                </tr>
+                <tr>
+                    <th scope="row">CEP</th>
+                    <td>{{ empresa.cep | em_branco }}</td>
+                </tr>
+                <tr>
+                    <th scope="row">E-mail</th>
+                    <td>{{ empresa.email | em_branco }}</td>
+                </tr>
+                <tr>
+                    <th scope="row">IM</th>
+                    <td>{{ empresa.im | em_branco }}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Status</th>
+                    <td>{{ empresa.status }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="col-md-3">
+        <a href="{% url 'atualizar' empresa.id %}">
+            <button class="btn btn-warning">Editar</button>
+        </a>
+    </div>
+</div>
+<div class="row">
+    <div style="align-items: right" class="col">
+        <a href="{% url 'listar_empresas' %}">
+            <button type="button" class="btn btn-danger">Cancelar</button>
+        </a>
+    </div>
+</div>
+{% endblock %}

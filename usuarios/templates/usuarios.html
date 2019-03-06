@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load empresas_filtro %}
+{% block title %}Usuários{% endblock %}
+
+{% block Main %}
+<h3 style="text-align: center">Usuários/Senhas </h3>
+<h4 style="text-align: center">{{empresa.razao}} - {{empresa.cnpj|em_branco}} - {{empresa.ie|em_branco}}</h4>
+    <br/>
+    <div style="overflow-x:auto;">
+        <table class="table table-sm">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Tipo</th>
+                    <th>Usuário</th>
+                    <th>Senha</th>
+                    <th>CFP</th>
+                    <th>Cod. Acesso</th>
+                    <th style="text-align: right"><a href="{% url 'criar_user' empresa.id %}"><img src="{% static 'icones/add_white.png' %}"></img></a></th>
+                </tr>
+                {% for user in users %}
+                    <tr>
+                        <td>
+                            {% if user.descricao %}
+                                {{user.descricao}}
+                            {% else %}
+                                {{ user.tipo }}
+                            {% endif %}
+                        </td>
+                        <td><a href="{% url 'atualizar_user' user.id %}">{{ user.user|em_branco}}</a></td>
+                        <td>{{ user.password|em_branco}}</td>
+                        <td>{{ user.cpf|em_branco}}</td>
+                        <td>{{ user.cod_acesso|em_branco}}</td>
+                        <td style="text-align: right">
+                            <span class=".col-sm-"><a href="{% url 'deletar_user' empresa.id user.id %}"><img src="{% static 'icones/del.png' %}"></img></a></span>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </thead>
+        </table>
+    </div>
+{% endblock %}

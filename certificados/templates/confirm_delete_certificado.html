@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% load bootstrap %}
+{% load static %}
+
+{% block title %}Deletar Certificado?{% endblock %}
+
+{% block Main %}
+    <h4>Tem certeza que deseja deletar {{certificado.tipo}} - {{certificado.validade}}</h4>
+
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Excluir</button>
+    </form>
+{% endblock %}

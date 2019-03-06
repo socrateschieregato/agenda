@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load empresas_filtro %}
+
+{% block title %} Planilhas enviadas {% endblock %}
+
+{% block Main %}
+<h4 style="text-align: center">Planilhas Enviadas</h4>
+    <br/>
+    <div class="table-responsive table-sm">
+        <input class="form-control" id="myInput" type="text" placeholder="Buscar..">
+        <br/>
+        <div class="texto-pequeno">{{qtd}} - Cadastrados</div>
+        <table class="table table-hover">
+            <thead class="thead-dark">
+                <tr style="text-align: center" class="cab">
+                    <th>ID</th>
+                    <th>Mês</th>
+                    <th>Ano</th>
+                    <th><a href="{% url 'nova_planilha' %}"><img src="{% static 'icones/add_white.png' %}"></img></a></th>
+                </tr>
+            </thead>
+            {% for plan in planilhas %}
+                <tbody id="myTable">
+                    <tr style="text-align: center">
+                        <td>{{ plan.id }}</td>
+                        <td>{{ plan.get_mes_display }}</td>
+                        <td>{{ plan.get_ano_display }}</td>
+                        <td><a href="{% url 'listar_notas' plan.id %}"><i class="fa fa-search"></i></a></td>
+                    </tr>
+                </tbody>
+            {% endfor %}
+        </table>
+    </div>
+{% endblock %}

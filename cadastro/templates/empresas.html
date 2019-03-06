@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load empresas_filtro %}
+
+{% block title %} Empresas Cadastradas {% endblock %}
+
+{% block Main %}
+<h4 style="text-align: center">Contatos Bizanha</h4>
+    <br/>
+    <div class="table-responsive table-sm">
+        <input class="form-control" id="myInput" type="text" placeholder="Buscar..">
+        <br/>
+        <div class="texto-pequeno">{{qtd}} - Cadastrados</div>
+        <table class="table table-hover">
+            <thead class="thead-dark">
+                <tr style="text-align: center" class="cab">
+                    <th>Código</th>
+                    <th>Empresa/Nome</th>
+                    <th>Telefones</th>
+                    <th>Usuários</th>
+                    <th>Certificados</th>
+                    <th><a href="{% url 'criar_empresas' %}"><img src="{% static 'icones/add_white.png' %}"></img></a></th>
+                </tr>
+            </thead>
+            {% for empresa in empresas %}
+                <tbody id="myTable">
+                    <tr>
+                        <td>{{empresa.codigo|cod4}}</td>
+                        <td>
+                            <a href="{% url 'ler' empresa.id %}">{{empresa.razao|razao }}</a>
+                        </td>
+                        <td style="text-align: center" class="fone">
+                            <a href="{% url 'listar_telefones' empresa.id %}"><img src="{% static 'icones/phone1.png' %}"></img></a>
+                        </td>
+                        <td style="text-align: center" class="fone">
+                            <a href="{% url 'listar_user' empresa.id %}"><img src="{% static 'icones/user1.png' %}"></img></a>
+                        </td>
+                        <td style="text-align: center" class="fone">
+                            <a href="{% url 'listar_certificados' empresa.id %}"><img src="{% static 'icones/certificado1.jpg' %}"></img></a>
+                        </td>
+                        <td style="text-align: center" class="fone">
+                            <a href="{% url 'deletar' empresa.id %}"><img src="{% static 'icones/del.png' %}"></img></a>
+                        </td>
+                    </tr>
+                </tbody>
+            {% endfor %}
+        </table>
+    </div>
+{% endblock %}

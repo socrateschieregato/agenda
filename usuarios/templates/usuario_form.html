@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load bootstrap %}
+{% load static %}
+
+{% block title %}Cadastrar Usuário/Senha{% endblock %}
+
+{% block Main %}
+    <div class="row">
+        <div class="col-lg-4"></div>
+        <div class="col-lg-4">
+            <h4>{{ empresa.razao }}</h4>
+            <form method="post">
+                {% csrf_token %}
+                <div class="row">
+                <div class="col">{{ form.empresa|bootstrap }}</div>
+                </div>
+                <div class="row">
+                    <div class="col">{{ form.tipo|bootstrap }}</div>
+                </div>
+                <div class="row">
+                    <div class="col">{{ form.descricao|bootstrap }}</div>
+                </div>
+                <div class="row">
+                    <div class="col">{{ form.user|bootstrap }}</div>
+                    <div class="col">{{ form.password|bootstrap }}</div>
+                </div>
+                <div class="row">
+                    <div class="col">{{ form.cpf|bootstrap }}</div>
+                    <div class="col">{{ form.cod_acesso|bootstrap }}</div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <button type="submit" class="btn btn-primary">Salvar</button>
+                        <a href="{% url 'listar_empresas' %}">
+                            <button type="button" class="btn btn-danger">Cancelar</button>
+                        </a>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="col-lg-4"></div>
+    </div>
+{% endblock %}

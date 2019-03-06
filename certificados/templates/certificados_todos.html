@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load empresas_filtro %}
+
+
+{% block title %}Certificados{% endblock %}
+
+{% block Main %}
+<h4 style="text-align: center">Certificados Digitais</h4>
+    <br/>
+    <div style="overflow-x:auto;">
+        <input class="form-control" id="myInput" type="text" placeholder="Buscar..">
+        <br/>
+        <table class="table">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Tipo</th>
+                    <th>Empresa</th>
+                    <th>Validade</th>
+                    <th>E-mail</th>
+                    <th>Status</th>
+                    <th style="text-align: right"><a href="{% url 'criar_certificado' %}"><img src="{% static 'icones/add_white.png' %}"></img></a></th>
+                </tr>
+            </thead>
+            <tbody id="myTable">
+                    {% for certificado in certificados %}
+                        {% if certificado.validade > hoje %}
+                            <tr class="no_prazo">
+                                {% for empresa in empresas %}
+                                    {% if empresa.id == certificado.empresa_id %}
+                                        <td>{{ certificado.tipo }}</td>
+                                        <td><a href="{% url 'atualizar_certificado' certificado.id%}">{{empresa.razao|upper }}</a></td>
+                                        <td>{{ certificado.validade|date:"d/m/Y"}}</td>
+                                        <td>{{ certificado.email|em_branco }}</td>
+                                        <td>
+                                            <img src="{% static 'icones/certificado_ok.jpg' %}"class="align-right"></img>
+                                        </td>
+                                        <td style="text-align: right"><a href="{% url 'deletar_certificado' empresa.id certificado.id %}"><img src="{% static 'icones/del.png' %}"></img></a></td>
+                                    {% endif %}
+                                {% endfor %}
+                            </tr>
+                        {% else %}
+                            <tr class="vencido">
+                                {% for empresa in empresas %}
+                                    {% if empresa.id == certificado.empresa_id %}
+                                        <td>{{ certificado.tipo }}</td>
+                                        <td><a href="{% url 'atualizar_certificado' certificado.id%}">{{empresa.razao }}</a></td>
+                                        <td>{{ certificado.validade|date:"d/m/Y"}}</td>
+                                        <td>{{ certificado.email|em_branco }}</td>
+                                        <td>
+                                            <img src="{% static 'icones/certificado_not_ok.jpg' %}"class="align-right"></img>
+                                        </td>
+                                        <td style="text-align: right"><a href="{% url 'deletar_certificado' empresa.id certificado.id %}"><img src="{% static 'icones/del.png' %}"></img></a></td>
+                                    {% endif %}
+                                {% endfor %}
+                            </tr>
+                        {% endif%}
+                    {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
